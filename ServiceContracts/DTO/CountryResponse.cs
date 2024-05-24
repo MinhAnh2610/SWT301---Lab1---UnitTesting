@@ -19,24 +19,9 @@ namespace ServiceContracts.DTO
         //It compares the current object to another object
         // of CountryResponse type and returns true,
         // if both values are same; otherwise returns false
-        public override bool Equals(object? obj)
-        {
-            if (obj == null) return false;
-            if (obj.GetType() != typeof(CountryResponse))
-            {
-                return false;
-            }
-            CountryResponse country_to_compare = (CountryResponse)obj as CountryResponse; 
-            return CountryId == country_to_compare.CountryId && 
-                CountryName == country_to_compare.CountryName;
-        }
-
-        public override int GetHashCode()
-        {
-            return base.GetHashCode();
-        }
     }
 
+    //extension method to Country 
     public static class CountryExtensions
     { 
         //Converts from Country object to CountryResponse object

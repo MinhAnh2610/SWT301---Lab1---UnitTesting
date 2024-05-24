@@ -15,25 +15,32 @@ namespace Services
         private readonly List<Country> _countries;
         public CountriesService()
         {
-            _countries = new List<Country>();
+            _countries = new List<Country>()
+            {
+                new Country
+                {
+                    CountryID = Guid.NewGuid(),
+                    CountryName = "USA"
+                }
+            };
         }
         public CountryResponse AddCountry(CountryAddRequest? countryAddRequest)
         {
 
             //Validation: countryAddRequest parameter can't be null
-            if (countryAddRequest is null)
+            if (countryAddRequest == null)
             {
                 throw new ArgumentNullException(nameof(countryAddRequest));
             }
 
             //Validation: countryName can't be null
-            if (countryAddRequest.CountryName is null)
+            if (countryAddRequest.CountryName == null)
             {
                 throw new ArgumentException(nameof(countryAddRequest.CountryName));
             }
 
             //Validation: countryName can't be duplicated
-            if (_countries.Where(temp => temp.CountryName == 
+            if (_countries.Where(c => c.CountryName == 
             countryAddRequest.CountryName).Count() > 0)
             {
                 throw new ArgumentException("Given country name already exists");

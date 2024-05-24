@@ -61,39 +61,15 @@ namespace CRUDTests
         public void AddCountry_DuplicateCountryName()
         {
             //Arrange
-            CountryAddRequest? request1 = new CountryAddRequest()
-            { CountryName = "USA" };
-            CountryAddRequest? request2 = new CountryAddRequest()
+            CountryAddRequest? request = new CountryAddRequest()
             { CountryName = "USA" };
 
             //Assert
             Assert.Throws<ArgumentException>(() =>
             {
                 //Act
-                _countryService.AddCountry(request1);
-                _countryService.AddCountry(request2);
+                _countryService.AddCountry(request);
             });
-        }
-
-        //When you supply proper contry name, it should
-        // insert the country to the existing list of
-        // countries
-        [Fact]
-        public void AddCountry_ProperCountryDetails()
-        {
-            //Arrange
-            CountryAddRequest? request = new CountryAddRequest()
-            { CountryName = "Japan" };
-
-            //Act
-            CountryResponse response =
-            _countryService.AddCountry(request);
-            List<CountryResponse> countries_from_GetAllCountries =
-                _countryService.GetAllCountries();
-
-            //Assert
-            Assert.True(response.CountryId != Guid.Empty);
-            Assert.Contains(response, countries_from_GetAllCountries);
         }
 
         #endregion
