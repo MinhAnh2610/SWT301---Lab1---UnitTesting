@@ -19,7 +19,7 @@ namespace Services
                 new Country
                 {
                     CountryID = Guid.Parse("0c2287a1-80ed-411f-8a97-90505fdf721d"),
-                    CountryName = "USA"
+                    CountryName = "Poland"
                 },
                 new Country
                 {
@@ -34,31 +34,31 @@ namespace Services
                 new Country
                 {
                     CountryID = Guid.Parse("c5ac763a-1a55-4769-85a3-f4e95064589d"),
-                    CountryName = "England"
+                    CountryName = "Cambodia"
                 }
             };
         }
         public CountryResponse AddCountry(CountryAddRequest? countryAddRequest)
         {
 
-            ////Validation: countryAddRequest parameter can't be null
-            //if (countryAddRequest == null)
-            //{
-            //    throw new ArgumentNullException(nameof(countryAddRequest));
-            //}
+            //Validation: countryAddRequest parameter can't be null
+            if(countryAddRequest == null)
+            {
+                throw new ArgumentNullException(nameof(countryAddRequest));
+            }
 
-            ////Validation: countryName can't be null
-            //if (countryAddRequest.CountryName == null)
-            //{
-            //    throw new ArgumentException(nameof(countryAddRequest.CountryName));
-            //}
+            //Validation: countryName can't be null
+            if(countryAddRequest.CountryName == null)
+            {
+                throw new ArgumentException(nameof(countryAddRequest.CountryName));
+            }
 
-            ////Validation: countryName can't be duplicated
-            //if (_countries.Where(c => c.CountryName == 
-            //countryAddRequest.CountryName).Count() > 0)
-            //{
-            //    throw new ArgumentException("Given country name already exists");
-            //}
+            //Validation: countryName can't be duplicated
+            if(_countries.Where(c => c.CountryName ==
+            countryAddRequest.CountryName).Count() > 0)
+            {
+                throw new ArgumentException("Given country name already exists");
+            }
 
             //Convert object from CountryAddRequest to Country type
             Country country = countryAddRequest.ToCountry();

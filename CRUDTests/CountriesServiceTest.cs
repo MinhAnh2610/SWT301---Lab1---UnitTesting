@@ -4,19 +4,33 @@ using ServiceContracts.DTO;
 using Services;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
+using Xunit.Sdk;
 
 namespace CRUDTests
 {
-    public class CountriesServiceTest
+    [AttributeUsage(AttributeTargets.Class | AttributeTargets.Method, AllowMultiple = false, Inherited = true)]
+    public class CountriesServiceTest : BeforeAfterTestAttribute
     {
         private readonly ICountriesService
             _countryService;
         public CountriesServiceTest()
         {
             _countryService = new CountriesService();
+        }
+
+        public override void Before(MethodInfo methodUnderTest)
+        {
+            Debug.WriteLine("Before");
+        }
+
+        public override void After(MethodInfo methodUnderTest)
+        {
+            Debug.WriteLine("After");
         }
         #region AddCountry
 
@@ -25,6 +39,7 @@ namespace CRUDTests
         [Fact]
         public void AddCountry_NullCountry()
         {
+            Debug.Write("null country");
             //Arrange
             CountryAddRequest? request = null;
 
@@ -62,7 +77,7 @@ namespace CRUDTests
         {
             //Arrange
             CountryAddRequest? request = new CountryAddRequest()
-            { CountryName = "USA" };
+            { CountryName = "Poland" };
 
             //Assert
             Assert.Throws<ArgumentException>(() =>
